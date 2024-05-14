@@ -25,9 +25,9 @@ model Experiment {
 }
 
 model Variant {
-    id           String     @id @default(auto()) @map("_id") @db.ObjectId
-    experiment   Experiment @relation(fields: [experimentId], references: [id])
-    experimentId String     @db.ObjectId
+    id           String        @id @default(auto()) @map("_id") @db.ObjectId
+    experiment   Experiment    @relation(fields: [experimentId], references: [id])
+    experimentId String        @db.ObjectId
     subject      String
     sender       String
     contentLine1 String
@@ -35,6 +35,17 @@ model Variant {
     sentAt       DateTime?
     clicked      Boolean?
     linkClicked  String?
-    user         User       @relation(fields: [userId], references: [id])
-    userId       String     @db.ObjectId
+    user         User          @relation(fields: [userId], references: [id])
+    messageId    String? // Add messageId field to store the unique identifier of the sent email message
+    userId       String        @db.ObjectId
+    interactions Interaction[]
+}
+
+model Interaction {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    variant   Variant  @relation(fields: [variantId], references: [id])
+    variantId String   @db.ObjectId
+    event     String // Examples: "email_opened", "link_clicked"
+    url       String? // URL of the clicked link, if applicable
+    createdAt DateTime @default(now()) @map("created_at")
 }
