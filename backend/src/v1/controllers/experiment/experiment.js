@@ -4,23 +4,36 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const experimentController = {
-  async createExperiment(req, res) {
-    try {
-      const { name } = req.body;
-      const userId = req.user.id;
-      const experiment = await prisma.experiment.create({
-        data: {
-          name,
-          userId,
-          variants: { create: [] }, // Initially, no variants
-        },
-      });
-      res.json(customResponse(200, experiment));
-    } catch (error) {
-      console.error("Error creating experiment:", error);
-      res.json(customResponse(500, "Internal server error"));
+ async createExperiment(req, res) {
+  try {
+    const { name } = req.body;
+    const userId = req.user.id;
+
+    const existingExperiment = await prisma.experiment.findFirst({
+      where: {
+        name,
+        userId, 
+      },
+    });
+
+    if (existingExperiment) {
+      return res.json(customResponse(400, "Experiment name must be unique"));
     }
-  },
+
+    const experiment = await prisma.experiment.create({
+      data: {
+        name,
+        userId,
+        variants: { create: [] },
+      },
+    });
+
+    res.json(customResponse(200, experiment));
+  } catch (error) {
+    console.error("Error creating experiment:", error);
+    res.json(customResponse(500, "Internal server error"));
+  }
+},
 
   async getExperiments(req, res) {
     try {
@@ -59,7 +72,7 @@ const experimentController = {
 
   async updateExperiment(req, res) {
     try {
-      const { experimentId } = req.params;
+      const { experimentId } = req.query;
       const { name } = req.body;
       const userId = req.user.id;
       const updatedExperiment = await prisma.experiment.update({
@@ -80,7 +93,7 @@ const experimentController = {
 
   async deleteExperiment(req, res) {
     try {
-      const { experimentId } = req.params;
+      const { experimentId } = req.query;
       const userId = req.user.id;
       await prisma.experiment.delete({
         where: {
