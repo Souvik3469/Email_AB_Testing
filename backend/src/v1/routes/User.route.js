@@ -17,5 +17,6 @@ router.delete("/delete-exp", authMiddleware, experimentController.deleteExperime
 
 //variants
 router.post("/create-variant", authMiddleware, variantController.createVariant);
+router.get("/get-allvariant", authMiddleware, variantController.getAllVariantsAnalytics);
 
 export default router;
