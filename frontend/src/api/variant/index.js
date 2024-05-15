@@ -21,28 +21,25 @@ const AuthAPI = () => {
     });
   }
 };
-
-
 const createVariant = async (ExperimentId,VariantInfo) => {
-  const { data } = await AuthAPI().post("/user/create-variant/?experimentId=${ExperimentId}", VariantInfo);
+  const { data } = await AuthAPI().post(`/user/create-variant/?experimentId=${ExperimentId}`, VariantInfo);
   return data;
 };
 
 
 const getMyVariant = async (ExperimentId) => {
-  const { data } = await AuthAPI().get("/user/get-allvariant?experimentId=${ExperimentId}");
+ 
+  const { data } = await AuthAPI().get(`/user/get-allvariant/?experimentId=${ExperimentId}`);
+ 
   return data;
 };
-
-
-
-
-const getMyVariantQuery = () =>
+const getMyVariantQuery = (ExperimentId) =>
   useQuery({
     queryKey: ["get-my-Variant"],
-    queryFn: () => getMyVariant(),
+    queryFn: () => getMyVariant(ExperimentId),
     select: (data) => {
-      const res = data.data;
+      const res = data;
+      console.log("V2",res);
       return res;
     },
   });

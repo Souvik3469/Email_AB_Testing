@@ -94,7 +94,7 @@ const variantController = {
 
     // Fetch analytics data from Mailgun
     const mailgunDomain=process.env.MAILGUN_DOMAIN.replace(/['"]+/g, '')
-    const response = await axios.get(`https://api.mailgun.net/v3/${mailgunDomain}/events?limit=20`, {
+    const response = await axios.get(`https://api.mailgun.net/v3/${mailgunDomain}/events`, {
       auth: {
         username: 'api',
         password: process.env.MAILGUN_API_KEY

@@ -56,7 +56,8 @@ const getMyExperimentsQuery = () =>
     queryKey: ["get-my-Experiments"],
     queryFn: () => getMyExperiment(),
     select: (data) => {
-      const res = data.data;
+      const res = data.message;
+      console.log("Exp",res);
       return res;
     },
   });

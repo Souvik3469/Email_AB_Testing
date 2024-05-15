@@ -8,8 +8,12 @@ import { useEffect } from "react";
 import Register from "./Components/auth/Register";
 import Login from "./Components/auth/Login";
 import Loading from "./Components/Loading";
-import CreateExperiment from "./Components/CreateExperiment";
-import ViewMyVariants from "./Components/ViewMyVariants";
+
+import CreateExperimentForm from "./Components/CreateExperimentForm"
+import CreateVariantForm from "./Components/CreateVariantForm"
+
+
+import Home from "./Components/Home";
 
 
 function App() {
@@ -55,9 +59,10 @@ function App() {
             {/* <Route path="/" element={<Landing/>} /> */}
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-             <Route path="/home" element={<ViewMyVariants />} />
+             <Route path="/home" element={<Home/>} />
               
-               <Route path="/createExperiment" element={<CreateExperiment />} />
+               <Route path="/create-experiment" element={<CreateExperimentForm />} />
+               <Route path="/create-variant" element={<CreateVariantForm />} />
                
                {/* <Route path="/updatetender/:tenderId" element={<UpdateTender />} /> */}
                <Route path="/loading" element={<Loading />} />
