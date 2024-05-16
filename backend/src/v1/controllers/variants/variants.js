@@ -39,7 +39,7 @@ const variantController = {
 
      mg.messages.create(process.env.MAILGUN_DOMAIN, emailData)
   .then(msg => {
-    const messageId = msg.id.replace(/[<>]/g, ''); // Remove < and > characters
+    const messageId = msg.id.replace(/[<>]/g, ''); 
 
     return prisma.variant.update({
       where: { id: variant.id },
@@ -55,44 +55,43 @@ const variantController = {
       res.json(customResponse(500, "Internal server error"));
     }
   },
- async getVariantAnalytics(req, res) {
-    try {
-      const { variantId } = req.params;
-      const variant = await prisma.variant.findUnique({
-        where: { id: variantId },
-        include: {
-          interactions: true // Include interactions related to this variant
-        }
-      });
+//  async getVariantAnalytics(req, res) {
+//     try {
+//       const { variantId } = req.params;
+//       const variant = await prisma.variant.findUnique({
+//         where: { id: variantId },
+//         include: {
+//           interactions: true 
+//         }
+//       });
       
-      if (!variant) {
-        return res.status(404).json({ error: 'Variant not found' });
-      }
+//       if (!variant) {
+//         return res.status(404).json({ error: 'Variant not found' });
+//       }
 
-      // Calculate analytics data (e.g., count email opens, link clicks)
-      const emailOpens = variant.interactions.filter(interaction => interaction.event === 'email_opened').length;
-      const linkClicks = variant.interactions.filter(interaction => interaction.event === 'link_clicked').length;
+  
+//       const emailOpens = variant.interactions.filter(interaction => interaction.event === 'email_opened').length;
+//       const linkClicks = variant.interactions.filter(interaction => interaction.event === 'link_clicked').length;
 
-      // Construct response object with analytics data
-      const analyticsData = {
-        variantId: variant.id,
-        emailOpens,
-        linkClicks
-        // Add more analytics data as needed
-      };
+//       const analyticsData = {
+//         variantId: variant.id,
+//         emailOpens,
+//         linkClicks
 
-      res.json(analyticsData);
-    } catch (error) {
-      console.error('Error fetching variant analytics:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  },
+//       };
+
+//       res.json(analyticsData);
+//     } catch (error) {
+//       console.error('Error fetching variant analytics:', error);
+//       res.status(500).json({ error: 'Internal server error' });
+//     }
+//   },
 
   async getAllVariantsAnalytics(req, res) {
  try {
     const { experimentId } = req.query;
 
-    // Fetch analytics data from Mailgun
+ 
     const mailgunDomain=process.env.MAILGUN_DOMAIN.replace(/['"]+/g, '')
     const response = await axios.get(`https://api.mailgun.net/v3/${mailgunDomain}/events`, {
       auth: {
@@ -101,14 +100,14 @@ const variantController = {
       }
     });
 
-    // Get all variants for the specific experiment ID
+  
     const variants = await prisma.variant.findMany({
       where: {
-        experimentId: experimentId// Assuming experimentId is a number
+        experimentId: experimentId
       }
     });
 
-    // Filter analytics data based on the message ID stored in each variant
+ 
     const filteredAnalytics = response.data.items.filter(item => {
       return variants.some(variant => variant.messageId === item.message.headers['message-id']);
     });

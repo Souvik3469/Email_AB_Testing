@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="bg-blue-500 p-4">
       <ul className="flex justify-center space-x-4">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
           <Link to="/create-experiment">Create Experiment</Link>

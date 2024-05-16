@@ -1,4 +1,3 @@
-// CreateExperimentForm.jsx
 
 import React, { useState } from 'react';
 import { createExperiment } from '../api/experiment';
@@ -10,15 +9,15 @@ const CreateExperimentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Call API to create experiment
+
       const experimentInfo = { name };
       const data = await createExperiment(experimentInfo);
       console.log('Experiment created:', data);
-      // Reset form fields
+
       setName('');
     } catch (error) {
       console.error('Error creating experiment:', error);
-      // Handle error (e.g., show error message)
+
     }
   };
 
