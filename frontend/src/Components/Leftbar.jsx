@@ -1,17 +1,17 @@
-// LeftBar.jsx
-
 import React from 'react';
 
-const LeftBar = ({ experiments }) => {
+const LeftBar = ({ experiments, onExperimentClick }) => {
   return (
-    <div className="bg-gray-200 h-screen w-64 p-4">
+    <div>
       <h2 className="text-xl font-bold mb-4">Experiments</h2>
       <ul>
-        {experiments.map((experiment) => (
-          <li key={experiment.id} className="mb-2">
-            <a href={`/experiments/${experiment.id}`} className="text-blue-500 hover:text-blue-700">
-              {experiment.name}
-            </a>
+        {experiments && experiments.map(experiment => (
+          <li
+            key={experiment.id}
+            className="cursor-pointer p-2 hover:bg-gray-200"
+            onClick={() => onExperimentClick(experiment.id, experiment.name)}
+          >
+            {experiment.name}
           </li>
         ))}
       </ul>

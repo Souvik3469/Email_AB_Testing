@@ -39,7 +39,7 @@ function Register() {
       name: "",
       email: "",
       password: "",
-      role:"",
+     
 
     },
   });
@@ -91,15 +91,7 @@ function Register() {
                   {...register("name")}
                 />
               </div>
-              <div className="">
-                <TextField
-                  id="outlined-basic"
-                  label="Role?   company/vendor"
-                  variant="outlined"
-                  className="w-full rounded-lg text-white"
-                  {...register("role")}
-                />
-              </div>
+              
               <div className="">
                 <TextField
                   id="outlined-basic"
@@ -186,17 +178,17 @@ function Register() {
         </div>
       </div>
        <ToastContainer
-position="top-center"
-autoClose={5000}
-hideProgressBar
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
     </div>
   );
 }

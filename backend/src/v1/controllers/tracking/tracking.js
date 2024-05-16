@@ -7,14 +7,14 @@ const prisma = new PrismaClient();
 const trackingController = {
   async trackEvent(req, res) {
     try {
-      // Parse the event data from Mailgun webhook payload
+      
       const { event, variantId } = req.body;
 
-      // Update the corresponding variant data based on the event
+    
       const updatedVariant = await prisma.variant.update({
         where: { id: variantId },
         data: {
-          [event]: true, // Update the event field (e.g., opened, clicked)
+          [event]: true, 
         },
       });
 
