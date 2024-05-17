@@ -18,7 +18,7 @@ const CreateVariantForm = () => {
       const data = await createVariant(selectedExperimentId, variantInfo);
       console.log('Variant created:', data);
      
-      // Clear form fields after successful submission
+ 
       setSubject('');
       setSender('');
       setContentLine1('');
