@@ -23,7 +23,6 @@ const Home = () => {
     }
   }, [experiments, selectedExperimentId]);
 
-
   useEffect(() => {
     if (variants) {
       const eventData = variants.map(variant => variant.event);
@@ -43,8 +42,6 @@ const Home = () => {
       };
       setVariantData(chartData);
       setIsLoadingData(false); 
-    } else {
-      setIsLoadingData(false);
     }
   }, [variants]);
 
@@ -56,15 +53,30 @@ const Home = () => {
   };
 
   const handleExperimentClick = (experimentId, experimentName) => {
-    setIsLoadingData(true); 
+    setIsLoadingData(true);
+    console.log("Expname",experimentName);
     setSelectedExperimentId(experimentId);
     setSelectedExperimentName(experimentName);
   };
 
-  if (experimentsLoading) return <div>Loading experiments...</div>;
-  if (experimentsError) return <div>Error fetching experiments</div>;
-  if (variantsLoading || isLoadingData) return <div>Loading data...</div>;
-  if (variantsError) return <div>Loading variants it may take some time</div>;
+  if (experimentsLoading || variantsLoading || isLoadingData) 
+  return (
+      <div className="flex flex-col h-screen">
+        <Navbar className="fixed top-0 left-0 right-0 z-10" />
+        <div className="flex flex-grow pt-16 justify-center items-center">
+          <div>Loading data it may take sometime...</div>
+        </div>
+      </div>
+    );
+  if (experimentsError || variantsError) 
+  return (
+      <div className="flex flex-col h-screen">
+        <Navbar className="fixed top-0 left-0 right-0 z-10" />
+        <div className="flex flex-grow pt-16 justify-center items-center">
+          <div>Some error occured in loading variants</div>
+        </div>
+      </div>
+    );
 
    return (
     <div className="flex flex-col h-screen">
