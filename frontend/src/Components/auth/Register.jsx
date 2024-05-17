@@ -7,7 +7,7 @@ import { registerUser } from "../../api";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import Loading from "../Loading";
-import register1 from "../../assets/register1.jpg"
+import register1 from "../../assets/e4.jpg"
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -75,8 +75,8 @@ function Register() {
         <div className="flex flex-col ">
        
            <div className="p-4 m-4">
-                  <span className='font-mont text-blue-800 text-4xl font-bold'>AB</span>
-                  <span className='font-mont text-blue-400 text-4xl font-bold'>EMAIL</span>
+                  <span className='font-mont text-blue-800 text-4xl font-bold'>MAIL</span>
+                  <span className='font-mont text-blue-400 text-4xl font-bold'>CLIQUE</span>
                </div>
           <p className="text-gray-500">New User? </p>
           <h1 className="font-bold text-3xl font-mono">Register</h1>

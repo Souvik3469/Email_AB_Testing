@@ -23,6 +23,7 @@ const Home = () => {
     }
   }, [experiments, selectedExperimentId]);
 
+
   useEffect(() => {
     if (variants) {
       const eventData = variants.map(variant => variant.event);
@@ -41,7 +42,9 @@ const Home = () => {
         ],
       };
       setVariantData(chartData);
-      setIsLoadingData(false); // Set loading state to false when data is loaded
+      setIsLoadingData(false); 
+    } else {
+      setIsLoadingData(false);
     }
   }, [variants]);
 
@@ -53,36 +56,37 @@ const Home = () => {
   };
 
   const handleExperimentClick = (experimentId, experimentName) => {
-    setIsLoadingData(true); // Set loading state to true when fetching new data
-    console.log("Expname",experimentName);
+    setIsLoadingData(true); 
     setSelectedExperimentId(experimentId);
     setSelectedExperimentName(experimentName);
   };
 
-  if (experimentsLoading || variantsLoading || isLoadingData) return <div>Loading...</div>;
-  if (experimentsError || variantsError) return <div>Error fetching data</div>;
+  if (experimentsLoading) return <div>Loading experiments...</div>;
+  if (experimentsError) return <div>Error fetching experiments</div>;
+  if (variantsLoading || isLoadingData) return <div>Loading data...</div>;
+  if (variantsError) return <div>Loading variants it may take some time</div>;
 
-  return (
+   return (
     <div className="flex flex-col h-screen">
       <Navbar className="fixed top-0 left-0 right-0 z-10" />
-      <div className="flex flex-grow pt-16"> {/* Added pt-16 to account for fixed navbar height */}
-        <div className="w-1/4 bg-gray-300 p-4">
+      <div className="flex flex-grow pt-16">
+        <div className="w-1/5 p-6 bg-white shadow-lg">
           <LeftBar experiments={experiments} onExperimentClick={handleExperimentClick} />
         </div>
-        <div className="flex flex-col items-center justify-center w-full">
+        <div className="flex flex-col items-center justify-center w-4/5 p-8">
           <h1 className="text-3xl font-bold my-4">View All Variants</h1>
           <h2 className="text-xl font-bold mb-4">{selectedExperimentName}</h2>
-          <div className="max-w-2xl mx-auto grid grid-cols-2 gap-8">
-            <div>
+          <div className="max-w-4xl w-full grid grid-cols-2 gap-12">
+            <div className="p-4 bg-white shadow-md rounded-lg">
               {variantData ? <Bar data={variantData} /> : <div>No data available</div>}
             </div>
-            <div>
-              {variantData ? <Pie data={variantData} /> : <div>No data available</div>}
+            <div className="px-16 py-4 bg-white shadow-md rounded-lg">
+              {variantData ? <Pie data={variantData}  /> : <div>No data available</div>}
             </div>
-            <div>
+            <div className="p-4 bg-white shadow-md rounded-lg">
               {variantData ? <Line data={variantData} /> : <div>No data available</div>}
             </div>
-            <div>
+            <div className="px-16 py-4 bg-white shadow-md rounded-lg">
               {variantData ? <Doughnut data={variantData} /> : <div>No data available</div>}
             </div>
           </div>
