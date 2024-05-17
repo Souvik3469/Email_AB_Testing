@@ -20,7 +20,7 @@ import {
 } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import Loading from "../Loading";
-import login1 from "../../assets/login2.jpg"
+import login1 from "../../assets/e3.jpg"
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -96,8 +96,8 @@ function Login() {
       <div className="flex lg:w-1/2  sm:w-full  justify-center p-16">
         <div className="flex flex-col gap-4">
           <div className="p-4 m-4">
-                  <span className='font-mont text-blue-800 text-4xl font-bold'>AB</span>
-                  <span className='font-mont text-blue-400 text-4xl font-bold'>EMAIL</span>
+                  <span className='font-mont text-blue-800 text-4xl font-bold'>MAIL</span>
+                  <span className='font-mont text-blue-400 text-4xl font-bold'>CLIQUE</span>
                </div>
 
           <p className="text-gray-500 ">Existing User? </p>
